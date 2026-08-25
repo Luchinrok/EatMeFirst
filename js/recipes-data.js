@@ -114,7 +114,7 @@ const RECIPES = [
     emoji: '🥣',
     time: 8, servings: 1, difficulty: 'fàcil', category: 'esmorzar',
     ingredients: [
-      { emoji: '🌾', name: 'flocs d\'avena', qty: '4 cullerades', amount: null, unit: null, required: true },
+      { emoji: '🌾', name: 'avena', qty: '4 cullerades', amount: null, unit: null, required: true },
       { emoji: '🍌', name: 'plàtan', qty: '1', amount: 1, unit: 'u', required: true },
       { emoji: '🥛', name: 'llet', qty: '200 ml', amount: 200, unit: 'ml', required: false },
       { emoji: '🍯', name: 'mel', qty: '1 culleradeta', amount: null, unit: null, required: false }

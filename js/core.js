@@ -163,7 +163,15 @@ const POPULAR_PRODUCTS = [
   // Tipus de pasta com a productes propis (sense sinònim → 'pasta'; 10/06/2026)
   { ca: 'Macarrons', slug: 'macarrons',          en: 'Macaroni', es: 'Macarrones', fr: 'Macaronis',       emoji: '🍝', days: 730, location: 'pantry', price: 1.20, weight: '500g' },
   { ca: 'Fideus', slug: 'fideus',             en: 'Noodles', es: 'Fideos', fr: 'Vermicelles',        emoji: '🍝', days: 730, location: 'pantry', price: 1.20, weight: '500g' },
-  { ca: 'Plaques de lasanya', slug: 'plaques-de-lasanya', en: 'Lasagna sheets', es: 'Placas de lasaña', fr: 'Feuilles de lasagne', emoji: '🍝', days: 730, location: 'pantry', price: 1.50, weight: '500g' }
+  { ca: 'Plaques de lasanya', slug: 'plaques-de-lasanya', en: 'Lasagna sheets', es: 'Placas de lasaña', fr: 'Feuilles de lasagne', emoji: '🍝', days: 730, location: 'pantry', price: 1.50, weight: '500g' },
+  // ⚠️ Entrades noves SEMPRE al FINAL, mai inserides al mig ni agrupades per
+  //    categoria. El popularId desat als rebosts dels usuaris és 'pop-N' = la
+  //    POSICIÓ d'array; inserir una entrada al mig desplaçaria tots els pop-N ja
+  //    desats i passarien a apuntar al producte del costat. Per això aquestes
+  //    van aquí encara que trenqui l'agrupació per categories del fitxer.
+  //    (Ingredients de recepta que abans no resolien al catàleg — Pas 4.)
+  { ca: 'Massa d\'empanada', slug: 'massa-d-empanada', en: 'Empanada pastry', es: 'Masa de empanada', fr: 'Pâte à empanada', emoji: '🥟', days: 14, location: 'fridge', price: 2.00, weight: '2u' },
+  { ca: 'Pa d\'hamburguesa', slug: 'pa-d-hamburguesa', en: 'Burger bun', es: 'Pan de hamburguesa', fr: 'Pain à burger', emoji: '🍞', days: 7, location: 'pantry', price: 1.50, weight: '4u' }
 ];
 
 // ============================================
