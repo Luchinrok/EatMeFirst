@@ -5,6 +5,27 @@
 // ============================================================================
 
 TRANSLATIONS.es = {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Macedonia',
+    'recipe_macedonia_steps': ['Pela y corta todas las frutas en dados.', 'Mézclalas en un bol grande.', 'Vierte el zumo de una naranja y refrigera antes de servir.'],
+    'recipe_iogurt-mel_name': 'Yogur con miel',
+    'recipe_iogurt-mel_steps': ['Vierte el yogur en el bol.', 'Pon la miel por encima.', 'Decora con frutos secos si tienes.'],
+    'recipe_platan-xocolata_name': 'Plátano con chocolate',
+    'recipe_platan-xocolata_steps': ['Funde el chocolate al baño María o microondas.', 'Baña el plátano con el chocolate.', 'Refrigera 10 minutos para que se solidifique.'],
+    'recipe_crema-catalana_name': 'Crema catalana',
+    'recipe_crema-catalana_steps': ['Hierve la leche con la canela.', 'Mezcla las yemas con el azúcar e incorpora la leche caliente.', 'Cuece a fuego bajo hasta que espese y refrigera.'],
+    'recipe_pa-xocolata_name': 'Pan con chocolate',
+    'recipe_pa-xocolata_steps': ['Corta el pan en rebanadas.', 'Pon onzas de chocolate encima.', 'Si quieres, acaba con un hilo de aceite y una pizca de sal.'],
+    'recipe_maduixes-nata_name': 'Fresas con nata',
+    'recipe_maduixes-nata_steps': ['Lava y corta las fresas en cuartos.', 'Monta la nata con el azúcar.', 'Reparte la nata sobre las fresas.'],
+    'recipe_poma-forn_name': 'Manzana al horno',
+    'recipe_poma-forn_steps': ['Vacía el corazón de las manzanas sin atravesarlas.', 'Rellénalas de miel y espolvorea con canela.', 'Horno a 180° durante 30 minutos.'],
+    'recipe_iogurt-fruits-secs_name': 'Yogur con frutos secos',
+    'recipe_iogurt-fruits-secs_steps': ['Vierte el yogur en el bol.', 'Trocea ligeramente los frutos secos.', 'Ponlos por encima y acaba con un hilo de miel.'],
+    'recipe_macedonia-tropical_name': 'Macedonia tropical',
+    'recipe_macedonia-tropical_steps': ['Pela y corta el mango y la piña en dados.', 'Mézclalo en un bol.', 'Decora con coco rallado por encima.'],
+    'recipe_platan-iogurt_name': 'Plátano con yogur',
+    'recipe_platan-iogurt_steps': ['Corta el plátano en rodajas en un bol.', 'Cúbrelo con el yogur.', 'Vierte un hilo de miel por encima.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margarita',
     'recipe_pizza-margherita_steps': ['Extiende la masa sobre papel de horno.', 'Píntala con tomate y reparte la mozzarella.', 'Horno a 220° 12 minutos y decora con albahaca fresca.'],

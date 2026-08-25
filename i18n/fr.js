@@ -5,6 +5,27 @@
 // ============================================================================
 
 TRANSLATIONS.fr = {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Salade de fruits',
+    'recipe_macedonia_steps': ['Épluche et coupe tous les fruits en dés.', 'Mélange-les dans un grand bol.', "Verse le jus d'une orange et réfrigère avant de servir."],
+    'recipe_iogurt-mel_name': 'Yaourt au miel',
+    'recipe_iogurt-mel_steps': ['Verse le yaourt dans le bol.', 'Mets le miel par-dessus.', 'Décore de fruits secs si tu en as.'],
+    'recipe_platan-xocolata_name': 'Banane au chocolat',
+    'recipe_platan-xocolata_steps': ['Fais fondre le chocolat au bain-marie ou au micro-ondes.', 'Enrobe la banane de chocolat.', "Réfrigère 10 minutes pour qu'il se solidifie."],
+    'recipe_crema-catalana_name': 'Crème catalane',
+    'recipe_crema-catalana_steps': ['Fais bouillir le lait avec la cannelle.', 'Mélange les jaunes avec le sucre et incorpore le lait chaud.', "Laisse cuire à feu doux jusqu'à ce que ça épaississe et réfrigère."],
+    'recipe_pa-xocolata_name': 'Tartine au chocolat',
+    'recipe_pa-xocolata_steps': ['Coupe le pain en tranches.', 'Mets des carrés de chocolat dessus.', "Si tu veux, termine avec un filet d'huile et une pincée de sel."],
+    'recipe_maduixes-nata_name': 'Fraises à la crème',
+    'recipe_maduixes-nata_steps': ['Lave et coupe les fraises en quartiers.', 'Monte la crème avec le sucre.', 'Répartis la crème sur les fraises.'],
+    'recipe_poma-forn_name': 'Pomme au four',
+    'recipe_poma-forn_steps': ['Évide le cœur des pommes sans les transpercer.', 'Remplis-les de miel et saupoudre de cannelle.', 'Four à 180° pendant 30 minutes.'],
+    'recipe_iogurt-fruits-secs_name': 'Yaourt aux fruits secs',
+    'recipe_iogurt-fruits-secs_steps': ['Verse le yaourt dans le bol.', 'Concasse légèrement les fruits secs.', 'Mets-les par-dessus et termine avec un filet de miel.'],
+    'recipe_macedonia-tropical_name': 'Salade de fruits tropicale',
+    'recipe_macedonia-tropical_steps': ["Épluche et coupe la mangue et l'ananas en dés.", 'Mélange le tout dans un bol.', 'Décore de noix de coco râpée par-dessus.'],
+    'recipe_platan-iogurt_name': 'Banane au yaourt',
+    'recipe_platan-iogurt_steps': ['Coupe la banane en rondelles dans un bol.', 'Couvre-la avec le yaourt.', 'Verse un filet de miel par-dessus.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margherita',
     'recipe_pizza-margherita_steps': ['Étale la pâte sur du papier de cuisson.', 'Badigeonne-la de tomate et répartis la mozzarella.', 'Four à 220° 12 minutes et décore de basilic frais.'],

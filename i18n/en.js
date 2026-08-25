@@ -5,6 +5,27 @@
 // ============================================================================
 
 TRANSLATIONS.en = {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Fruit salad',
+    'recipe_macedonia_steps': ['Peel and cut all the fruit into cubes.', 'Mix them in a large bowl.', 'Pour in the juice of one orange and chill before serving.'],
+    'recipe_iogurt-mel_name': 'Yoghurt with honey',
+    'recipe_iogurt-mel_steps': ['Pour the yoghurt into the bowl.', 'Add the honey on top.', 'Decorate with nuts if you have any.'],
+    'recipe_platan-xocolata_name': 'Banana with chocolate',
+    'recipe_platan-xocolata_steps': ['Melt the chocolate in a bain-marie or microwave.', 'Coat the banana in the chocolate.', 'Chill for 10 minutes so it sets.'],
+    'recipe_crema-catalana_name': 'Catalan cream',
+    'recipe_crema-catalana_steps': ['Boil the milk with the cinnamon.', 'Mix the yolks with the sugar and stir in the hot milk.', 'Cook over low heat until it thickens and chill.'],
+    'recipe_pa-xocolata_name': 'Bread with chocolate',
+    'recipe_pa-xocolata_steps': ['Cut the bread into slices.', 'Put squares of chocolate on top.', 'If you like, finish with a drizzle of oil and a pinch of salt.'],
+    'recipe_maduixes-nata_name': 'Strawberries and cream',
+    'recipe_maduixes-nata_steps': ['Wash and cut the strawberries into quarters.', 'Whip the cream with the sugar.', 'Spread the cream over the strawberries.'],
+    'recipe_poma-forn_name': 'Baked apple',
+    'recipe_poma-forn_steps': ['Core the apples without going all the way through.', 'Fill them with honey and dust with cinnamon.', 'Oven at 180° for 30 minutes.'],
+    'recipe_iogurt-fruits-secs_name': 'Yoghurt with nuts',
+    'recipe_iogurt-fruits-secs_steps': ['Pour the yoghurt into the bowl.', 'Roughly chop the nuts.', 'Add them on top and finish with a drizzle of honey.'],
+    'recipe_macedonia-tropical_name': 'Tropical fruit salad',
+    'recipe_macedonia-tropical_steps': ['Peel and cut the mango and pineapple into cubes.', 'Mix it in a bowl.', 'Decorate with grated coconut on top.'],
+    'recipe_platan-iogurt_name': 'Banana with yoghurt',
+    'recipe_platan-iogurt_steps': ['Slice the banana into a bowl.', 'Cover it with the yoghurt.', 'Pour a drizzle of honey on top.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Margherita pizza',
     'recipe_pizza-margherita_steps': ['Spread the dough out on baking paper.', 'Brush it with tomato and spread the mozzarella over it.', 'Oven at 220° for 12 minutes and garnish with fresh basil.'],

@@ -5,6 +5,27 @@
 // ============================================================================
 
 TRANSLATIONS.ca = {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Macedònia',
+    'recipe_macedonia_steps': ['Pela i talla totes les fruites a daus.', 'Mescla-les en un bol gran.', "Aboca-hi el suc d'una taronja i refrigera abans de servir."],
+    'recipe_iogurt-mel_name': 'Iogurt amb mel',
+    'recipe_iogurt-mel_steps': ['Aboca el iogurt al bol.', 'Posa la mel per sobre.', 'Decora amb fruits secs si en tens.'],
+    'recipe_platan-xocolata_name': 'Plàtan amb xocolata',
+    'recipe_platan-xocolata_steps': ['Fon la xocolata al bany Maria o microones.', 'Banya el plàtan amb la xocolata.', 'Refrigera 10 minuts perquè es solidifiqui.'],
+    'recipe_crema-catalana_name': 'Crema catalana',
+    'recipe_crema-catalana_steps': ['Bull la llet amb la canyella.', 'Mescla els rovells amb el sucre i incorpora la llet calenta.', 'Cou a foc baix fins que espesseixi i refrigera.'],
+    'recipe_pa-xocolata_name': 'Pa amb xocolata',
+    'recipe_pa-xocolata_steps': ['Talla el pa a llesques.', 'Posa rajoles de xocolata a sobre.', "Si vols, acaba amb un fil d'oli i una pessigada de sal."],
+    'recipe_maduixes-nata_name': 'Maduixes amb nata',
+    'recipe_maduixes-nata_steps': ['Renta i talla les maduixes a quarts.', 'Munta la nata amb el sucre.', 'Reparteix la nata sobre les maduixes.'],
+    'recipe_poma-forn_name': 'Poma al forn',
+    'recipe_poma-forn_steps': ['Buida el cor de les pomes sense travessar-les.', 'Omple-les de mel i empolvora amb canyella.', 'Forn a 180° durant 30 minuts.'],
+    'recipe_iogurt-fruits-secs_name': 'Iogurt amb fruits secs',
+    'recipe_iogurt-fruits-secs_steps': ['Aboca el iogurt al bol.', 'Trinxa lleugerament els fruits secs.', "Posa'ls per sobre i acaba amb un fil de mel."],
+    'recipe_macedonia-tropical_name': 'Macedònia tropical',
+    'recipe_macedonia-tropical_steps': ['Pela i talla el mango i la pinya a daus.', 'Mescla-ho en un bol.', 'Decora amb coco ratllat per sobre.'],
+    'recipe_platan-iogurt_name': 'Plàtan amb iogurt',
+    'recipe_platan-iogurt_steps': ['Talla el plàtan a rodanxes en un bol.', 'Cobreix-lo amb el iogurt.', 'Aboca un fil de mel per sobre.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margherita',
     'recipe_pizza-margherita_steps': ['Estén la massa sobre paper de forn.', 'Pinta-la amb tomàquet i reparteix-hi la mozzarella.', 'Forn a 220° 12 minuts i decora amb alfàbrega fresca.'],

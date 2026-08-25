@@ -12,6 +12,27 @@ const TRANSLATIONS = {
 
   // ============ CATALÀ ============
   ca: {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Macedònia',
+    'recipe_macedonia_steps': ['Pela i talla totes les fruites a daus.', 'Mescla-les en un bol gran.', "Aboca-hi el suc d'una taronja i refrigera abans de servir."],
+    'recipe_iogurt-mel_name': 'Iogurt amb mel',
+    'recipe_iogurt-mel_steps': ['Aboca el iogurt al bol.', 'Posa la mel per sobre.', 'Decora amb fruits secs si en tens.'],
+    'recipe_platan-xocolata_name': 'Plàtan amb xocolata',
+    'recipe_platan-xocolata_steps': ['Fon la xocolata al bany Maria o microones.', 'Banya el plàtan amb la xocolata.', 'Refrigera 10 minuts perquè es solidifiqui.'],
+    'recipe_crema-catalana_name': 'Crema catalana',
+    'recipe_crema-catalana_steps': ['Bull la llet amb la canyella.', 'Mescla els rovells amb el sucre i incorpora la llet calenta.', 'Cou a foc baix fins que espesseixi i refrigera.'],
+    'recipe_pa-xocolata_name': 'Pa amb xocolata',
+    'recipe_pa-xocolata_steps': ['Talla el pa a llesques.', 'Posa rajoles de xocolata a sobre.', "Si vols, acaba amb un fil d'oli i una pessigada de sal."],
+    'recipe_maduixes-nata_name': 'Maduixes amb nata',
+    'recipe_maduixes-nata_steps': ['Renta i talla les maduixes a quarts.', 'Munta la nata amb el sucre.', 'Reparteix la nata sobre les maduixes.'],
+    'recipe_poma-forn_name': 'Poma al forn',
+    'recipe_poma-forn_steps': ['Buida el cor de les pomes sense travessar-les.', 'Omple-les de mel i empolvora amb canyella.', 'Forn a 180° durant 30 minuts.'],
+    'recipe_iogurt-fruits-secs_name': 'Iogurt amb fruits secs',
+    'recipe_iogurt-fruits-secs_steps': ['Aboca el iogurt al bol.', 'Trinxa lleugerament els fruits secs.', "Posa'ls per sobre i acaba amb un fil de mel."],
+    'recipe_macedonia-tropical_name': 'Macedònia tropical',
+    'recipe_macedonia-tropical_steps': ['Pela i talla el mango i la pinya a daus.', 'Mescla-ho en un bol.', 'Decora amb coco ratllat per sobre.'],
+    'recipe_platan-iogurt_name': 'Plàtan amb iogurt',
+    'recipe_platan-iogurt_steps': ['Talla el plàtan a rodanxes en un bol.', 'Cobreix-lo amb el iogurt.', 'Aboca un fil de mel per sobre.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margherita',
     'recipe_pizza-margherita_steps': ['Estén la massa sobre paper de forn.', 'Pinta-la amb tomàquet i reparteix-hi la mozzarella.', 'Forn a 220° 12 minuts i decora amb alfàbrega fresca.'],
@@ -1523,6 +1544,27 @@ const TRANSLATIONS = {
   // Pas 3 — traducció per blocs. Les claus que falten cauen a `ca` via el
   // fallback de t(). Bloc Menja'm/BiteMe traduït (ES/EN/FR).
   es: {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Macedonia',
+    'recipe_macedonia_steps': ['Pela y corta todas las frutas en dados.', 'Mézclalas en un bol grande.', 'Vierte el zumo de una naranja y refrigera antes de servir.'],
+    'recipe_iogurt-mel_name': 'Yogur con miel',
+    'recipe_iogurt-mel_steps': ['Vierte el yogur en el bol.', 'Pon la miel por encima.', 'Decora con frutos secos si tienes.'],
+    'recipe_platan-xocolata_name': 'Plátano con chocolate',
+    'recipe_platan-xocolata_steps': ['Funde el chocolate al baño María o microondas.', 'Baña el plátano con el chocolate.', 'Refrigera 10 minutos para que se solidifique.'],
+    'recipe_crema-catalana_name': 'Crema catalana',
+    'recipe_crema-catalana_steps': ['Hierve la leche con la canela.', 'Mezcla las yemas con el azúcar e incorpora la leche caliente.', 'Cuece a fuego bajo hasta que espese y refrigera.'],
+    'recipe_pa-xocolata_name': 'Pan con chocolate',
+    'recipe_pa-xocolata_steps': ['Corta el pan en rebanadas.', 'Pon onzas de chocolate encima.', 'Si quieres, acaba con un hilo de aceite y una pizca de sal.'],
+    'recipe_maduixes-nata_name': 'Fresas con nata',
+    'recipe_maduixes-nata_steps': ['Lava y corta las fresas en cuartos.', 'Monta la nata con el azúcar.', 'Reparte la nata sobre las fresas.'],
+    'recipe_poma-forn_name': 'Manzana al horno',
+    'recipe_poma-forn_steps': ['Vacía el corazón de las manzanas sin atravesarlas.', 'Rellénalas de miel y espolvorea con canela.', 'Horno a 180° durante 30 minutos.'],
+    'recipe_iogurt-fruits-secs_name': 'Yogur con frutos secos',
+    'recipe_iogurt-fruits-secs_steps': ['Vierte el yogur en el bol.', 'Trocea ligeramente los frutos secos.', 'Ponlos por encima y acaba con un hilo de miel.'],
+    'recipe_macedonia-tropical_name': 'Macedonia tropical',
+    'recipe_macedonia-tropical_steps': ['Pela y corta el mango y la piña en dados.', 'Mézclalo en un bol.', 'Decora con coco rallado por encima.'],
+    'recipe_platan-iogurt_name': 'Plátano con yogur',
+    'recipe_platan-iogurt_steps': ['Corta el plátano en rodajas en un bol.', 'Cúbrelo con el yogur.', 'Vierte un hilo de miel por encima.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margarita',
     'recipe_pizza-margherita_steps': ['Extiende la masa sobre papel de horno.', 'Píntala con tomate y reparte la mozzarella.', 'Horno a 220° 12 minutos y decora con albahaca fresca.'],
@@ -3015,6 +3057,27 @@ const TRANSLATIONS = {
   },
 
   en: {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Fruit salad',
+    'recipe_macedonia_steps': ['Peel and cut all the fruit into cubes.', 'Mix them in a large bowl.', 'Pour in the juice of one orange and chill before serving.'],
+    'recipe_iogurt-mel_name': 'Yoghurt with honey',
+    'recipe_iogurt-mel_steps': ['Pour the yoghurt into the bowl.', 'Add the honey on top.', 'Decorate with nuts if you have any.'],
+    'recipe_platan-xocolata_name': 'Banana with chocolate',
+    'recipe_platan-xocolata_steps': ['Melt the chocolate in a bain-marie or microwave.', 'Coat the banana in the chocolate.', 'Chill for 10 minutes so it sets.'],
+    'recipe_crema-catalana_name': 'Catalan cream',
+    'recipe_crema-catalana_steps': ['Boil the milk with the cinnamon.', 'Mix the yolks with the sugar and stir in the hot milk.', 'Cook over low heat until it thickens and chill.'],
+    'recipe_pa-xocolata_name': 'Bread with chocolate',
+    'recipe_pa-xocolata_steps': ['Cut the bread into slices.', 'Put squares of chocolate on top.', 'If you like, finish with a drizzle of oil and a pinch of salt.'],
+    'recipe_maduixes-nata_name': 'Strawberries and cream',
+    'recipe_maduixes-nata_steps': ['Wash and cut the strawberries into quarters.', 'Whip the cream with the sugar.', 'Spread the cream over the strawberries.'],
+    'recipe_poma-forn_name': 'Baked apple',
+    'recipe_poma-forn_steps': ['Core the apples without going all the way through.', 'Fill them with honey and dust with cinnamon.', 'Oven at 180° for 30 minutes.'],
+    'recipe_iogurt-fruits-secs_name': 'Yoghurt with nuts',
+    'recipe_iogurt-fruits-secs_steps': ['Pour the yoghurt into the bowl.', 'Roughly chop the nuts.', 'Add them on top and finish with a drizzle of honey.'],
+    'recipe_macedonia-tropical_name': 'Tropical fruit salad',
+    'recipe_macedonia-tropical_steps': ['Peel and cut the mango and pineapple into cubes.', 'Mix it in a bowl.', 'Decorate with grated coconut on top.'],
+    'recipe_platan-iogurt_name': 'Banana with yoghurt',
+    'recipe_platan-iogurt_steps': ['Slice the banana into a bowl.', 'Cover it with the yoghurt.', 'Pour a drizzle of honey on top.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Margherita pizza',
     'recipe_pizza-margherita_steps': ['Spread the dough out on baking paper.', 'Brush it with tomato and spread the mozzarella over it.', 'Oven at 220° for 12 minutes and garnish with fresh basil.'],
@@ -4507,6 +4570,27 @@ const TRANSLATIONS = {
   },
 
   fr: {
+    // ===== Receptes · postre (Pas 4, sub-lot 6) =====
+    'recipe_macedonia_name': 'Salade de fruits',
+    'recipe_macedonia_steps': ['Épluche et coupe tous les fruits en dés.', 'Mélange-les dans un grand bol.', "Verse le jus d'une orange et réfrigère avant de servir."],
+    'recipe_iogurt-mel_name': 'Yaourt au miel',
+    'recipe_iogurt-mel_steps': ['Verse le yaourt dans le bol.', 'Mets le miel par-dessus.', 'Décore de fruits secs si tu en as.'],
+    'recipe_platan-xocolata_name': 'Banane au chocolat',
+    'recipe_platan-xocolata_steps': ['Fais fondre le chocolat au bain-marie ou au micro-ondes.', 'Enrobe la banane de chocolat.', "Réfrigère 10 minutes pour qu'il se solidifie."],
+    'recipe_crema-catalana_name': 'Crème catalane',
+    'recipe_crema-catalana_steps': ['Fais bouillir le lait avec la cannelle.', 'Mélange les jaunes avec le sucre et incorpore le lait chaud.', "Laisse cuire à feu doux jusqu'à ce que ça épaississe et réfrigère."],
+    'recipe_pa-xocolata_name': 'Tartine au chocolat',
+    'recipe_pa-xocolata_steps': ['Coupe le pain en tranches.', 'Mets des carrés de chocolat dessus.', "Si tu veux, termine avec un filet d'huile et une pincée de sel."],
+    'recipe_maduixes-nata_name': 'Fraises à la crème',
+    'recipe_maduixes-nata_steps': ['Lave et coupe les fraises en quartiers.', 'Monte la crème avec le sucre.', 'Répartis la crème sur les fraises.'],
+    'recipe_poma-forn_name': 'Pomme au four',
+    'recipe_poma-forn_steps': ['Évide le cœur des pommes sans les transpercer.', 'Remplis-les de miel et saupoudre de cannelle.', 'Four à 180° pendant 30 minutes.'],
+    'recipe_iogurt-fruits-secs_name': 'Yaourt aux fruits secs',
+    'recipe_iogurt-fruits-secs_steps': ['Verse le yaourt dans le bol.', 'Concasse légèrement les fruits secs.', 'Mets-les par-dessus et termine avec un filet de miel.'],
+    'recipe_macedonia-tropical_name': 'Salade de fruits tropicale',
+    'recipe_macedonia-tropical_steps': ["Épluche et coupe la mangue et l'ananas en dés.", 'Mélange le tout dans un bol.', 'Décore de noix de coco râpée par-dessus.'],
+    'recipe_platan-iogurt_name': 'Banane au yaourt',
+    'recipe_platan-iogurt_steps': ['Coupe la banane en rondelles dans un bol.', 'Couvre-la avec le yaourt.', 'Verse un filet de miel par-dessus.'],
     // ===== Receptes · plat-unic (Pas 4, sub-lot 5) =====
     'recipe_pizza-margherita_name': 'Pizza margherita',
     'recipe_pizza-margherita_steps': ['Étale la pâte sur du papier de cuisson.', 'Badigeonne-la de tomate et répartis la mozzarella.', 'Four à 220° 12 minutes et décore de basilic frais.'],
