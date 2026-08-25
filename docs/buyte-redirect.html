@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <!-- Fallback sense JS: hi va a l'arrel (no conserva ?query ni #hash; ho fa el JS). -->
+  <meta http-equiv="refresh" content="0; url=https://luchinrok.github.io/">
+  <title>Festuc s'ha mogut</title>
+  <style>
+    html, body { height: 100%; }
+    body {
+      margin: 0; min-height: 100%; display: grid; place-items: center;
+      padding: 24px; text-align: center; background: #FAFAF7; color: #1A1A1A;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .box { max-width: 22rem; }
+    h1 { font-size: 1.35rem; margin: 0 0 .5rem; font-weight: 700; }
+    p { margin: 0 0 1.25rem; color: #5F5E5A; line-height: 1.5; }
+    a.btn {
+      display: inline-block; background: #639922; color: #fff; text-decoration: none;
+      font-weight: 600; padding: .7rem 1.4rem; border-radius: .6rem;
+    }
+    a.btn:focus-visible { outline: 3px solid #4CAF2A; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Festuc s'ha mogut</h1>
+    <p>Ara viu a luchinrok.github.io. Si no hi vas sol, obre'l a mà:</p>
+    <a class="btn" id="go" href="https://luchinrok.github.io/">Obre Festuc</a>
+  </div>
+  <script>
+    (function () {
+      var base = 'https://luchinrok.github.io/';
+      // Conserva qualsevol ?query i #hash de la URL vella.
+      var dest = base + (location.search || '') + (location.hash || '');
+      var a = document.getElementById('go');
+      if (a) a.href = dest;                 // l'enllaç manual també els conserva
+      location.replace(dest);               // replace(): /Buyte/ no queda a l'historial
+    })();
+  </script>
+</body>
+</html>
