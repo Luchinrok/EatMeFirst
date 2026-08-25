@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#639922">
   <title>Festuc</title>
+  <!-- PWA / instal·lable. Totes les rutes són RELATIVES i start_url/scope del
+       manifest són "./" → funcionen sigui quin sigui el path de desplegament
+       (subcarpeta o arrel de l'origen), sense tocar res. Favicon SVG (ja
+       existent); .ico i apple-touch-icon.png es generen des dels masters
+       d'/icons/ (pendents d'exportar a PNG). -->
+  <link rel="manifest" href="manifest.json?v=20260825-1">
+  <link rel="icon" type="image/svg+xml" href="icons/festuc-icon-any.svg?v=20260825-1">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=20260825-1">
   <!-- Swiper.js (per al slider 3D estil Stories de zones EatMe i
        botigues BuyMe). El CSS va abans del nostre styles.css perquè
        puguem sobreescriure-li el look dels dots de paginació. El JS

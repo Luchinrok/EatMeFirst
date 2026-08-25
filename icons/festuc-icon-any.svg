@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Festuc">
+  <!-- Festuc SENSE CARA (versió logo). Derivat de la mascota d'index.html:772,
+       tret #nevi-eye-left, #nevi-eye-right i #nevi-mouth.
+       Variant A SANG (manifest purpose "any"): el fruit omple gairebé tot el
+       llenç (marge ~12 px dalt/baix), fons TRANSPARENT. Colors reals de marca:
+       closca #E7D3A8/#C9A96A, fruit #8CBE3F/#639922. -->
+  <g transform="translate(25,-8) scale(6.6)">
+    <!-- Closca beix -->
+    <ellipse cx="35" cy="40" rx="30" ry="37" fill="#E7D3A8" stroke="#C9A96A" stroke-width="2.5"/>
+    <!-- Fruit interior verd -->
+    <path d="M 10 22 Q 24 34 35 33 Q 46 34 60 22 Q 55 52 46 66 Q 40 74 35 75 Q 30 74 24 66 Q 15 52 10 22 Z"
+          fill="#8CBE3F" stroke="#639922" stroke-width="2.5"/>
+    <!-- Accent: contorn superior de l'obertura del fruit -->
+    <path d="M 10 22 Q 24 34 35 33 Q 46 34 60 22"
+          fill="none" stroke="#639922" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
