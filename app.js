@@ -5,6 +5,61 @@
    La lògica viu als mòduls js/*.js (carregats abans).
    ============================================ */
 
+// Executa el "back" d'una pantalla segons el data-back del seu botó enrere.
+// El comparteixen la fletxa de la UI (via history.back() → popstate) i el gest
+// enrere del sistema. Conté la MATEIXA lògica que tenia el handler de .back-btn:
+// neteja de pendents de l'add form + refresc de la pantalla destí. Quan
+// s'invoca des del popstate, _navFromPop és true → els showScreen interns NO
+// tornen a empènyer historial.
+function performBack(backBtn) {
+  if (!backBtn) return;
+  const target = backBtn.dataset.back;
+  // Si l'usuari surt de l'add form (screen-add) sense desar, descartem
+  // qualsevol flux pendent de "Comprat" del BuyMe — sinó, el següent
+  // saveNewProduct() continuaria creient que estem dins d'aquell flux
+  // i traient l'item d'una compra que ja no és l'actual.
+  if (backBtn.id === 'screen-add-back') {
+    if (typeof pendingShoppingItemId !== 'undefined') pendingShoppingItemId = null;
+    if (typeof pendingShoppingSupermarketId !== 'undefined') pendingShoppingSupermarketId = null;
+  }
+  // Refresc de la pantalla a la qual tornem (sobretot per quan venim
+  // del detall del producte i hem editat qty, data, zona, etc.)
+  if (target === 'shopping') renderSupermarkets();
+  else if (target === 'supermarket') renderShoppingItems();
+  else if (target === 'view-all' && typeof renderViewAll === 'function') {
+    if (typeof _resetViewAllSearch === 'function') _resetViewAllSearch();
+    renderViewAll();
+  }
+  else if (target === 'what-i-have' && typeof renderWhatIHave === 'function') renderWhatIHave();
+  else if (target === 'home' && typeof renderHome === 'function') renderHome();
+  else if (target === 'alerts' && typeof renderAlerts === 'function') renderAlerts();
+  else if (target === 'section' && typeof renderSection === 'function') renderSection();
+  else if (target === 'popular' && typeof renderPopularList === 'function') renderPopularList();
+  else if (target === 'cookme' && typeof renderCookMe === 'function') renderCookMe();
+  // Re-renderitzem la sub-pantalla de Configuració al tornar — així les
+  // que tenen contingut prestat (embedding) recuperen els seus fills.
+  else if (target === 'settings-regional' && typeof renderSettingsRegional === 'function') renderSettingsRegional();
+  else if (target === 'settings-content'  && typeof renderSettingsContent  === 'function') renderSettingsContent();
+  else if (target === 'settings-activity' && typeof renderSettingsActivity === 'function') renderSettingsActivity();
+  else if (target === 'settings-app'      && typeof renderSettingsApp      === 'function') renderSettingsApp();
+  else if (target === 'settings-data'     && typeof renderSettingsData     === 'function') renderSettingsData();
+  // (No cal cap refresc en tornar a 'settings' — la pantalla principal
+  // només té 5 cards de categoria estàtiques. Els subtítols dinàmics
+  // viuen dins les sub-pantalles, que ja es re-renderitzen quan s'obren.)
+  else if (target === 'list' && typeof openShelf === 'function' && currentLevel) {
+    openShelf(currentLevel);
+    return; // openShelf ja fa showScreen
+  }
+  else if (target === 'product' && typeof openProduct === 'function' && currentProduct) {
+    // Tornem al detall del producte des de CookMe (entrada via
+    // btn-recipes-from-product). openProduct refresca el contingut
+    // amb l'estat actual i ja crida showScreen('product').
+    openProduct(currentProduct.id);
+    return;
+  }
+  showScreen(target);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Migració al sistema d'Espais (FASE 1). Si l'usuari ja existeix
   // (té eatmefirst_sync_code o dades) i encara no té cap Espai, en
@@ -80,6 +135,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mostra la pantalla de benvinguda si no l'hem fet servir mai
   showWelcomeIfNeeded();
+
+  // Historial de navegació: fixa la pantalla inicial com a ARREL. Dos casos:
+  //  · Recàrrega profunda (l'usuari ha refrescat enmig de l'app): l'entrada
+  //    recarregada conserva el meu {d} de la sessió anterior (history.state
+  //    sobreviu el reload) i darrere hi ha d entrades meves residuals. Les
+  //    consumim d'un sol cop amb navCollapseToRoot → history.go(-d) → arrel neta,
+  //    així el primer gest enrere al launcher tanca l'app (adéu "dead press").
+  //  · Arrencada normal (d 0/absent): replaceState fixa l'entrada actual com a
+  //    arrel. La pantalla inicial és launcher (onboarded, .active estàtic) o
+  //    benvinguda pas 1. replaceState NO afegeix entrada ni toca la URL.
+  const _restoredD = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+  if (_restoredD > 0) {
+    navCollapseToRoot();   // go(-_restoredD) → aterra a la meva d:0; DOM ja és launcher
+  } else {
+    try { history.replaceState({ d: 0 }, ''); } catch (e) {}
+  }
+  _navBooting = false;
 
   // Configura l'autocomplete del formulari d'afegir producte
   setupNameAutocomplete();
@@ -295,54 +367,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById('menu-btn');
   if (menuBtn) menuBtn.addEventListener('click', () => openSettings('home'));
 
+  // El botó enrere de la UI i el gest enrere del sistema conflueixen a
+  // history.back(): la fletxa NO navega directament, sinó que fa history.back()
+  // → popstate → performBack (a sota). Així l'historial i la pila visual no
+  // divergeixen (si la fletxa navegués amb showScreen empenyeria una entrada i
+  // aniria enrere visualment alhora → deriva).
   document.querySelectorAll('.back-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      const target = b.dataset.back;
-      // Si l'usuari surt de l'add form (screen-add) sense desar, descartem
-      // qualsevol flux pendent de "Comprat" del BuyMe — sinó, el següent
-      // saveNewProduct() continuaria creient que estem dins d'aquell flux
-      // i traient l'item d'una compra que ja no és l'actual.
-      if (b.id === 'screen-add-back') {
-        if (typeof pendingShoppingItemId !== 'undefined') pendingShoppingItemId = null;
-        if (typeof pendingShoppingSupermarketId !== 'undefined') pendingShoppingSupermarketId = null;
-      }
-      // Refresc de la pantalla a la qual tornem (sobretot per quan venim
-      // del detall del producte i hem editat qty, data, zona, etc.)
-      if (target === 'shopping') renderSupermarkets();
-      else if (target === 'supermarket') renderShoppingItems();
-      else if (target === 'view-all' && typeof renderViewAll === 'function') {
-        if (typeof _resetViewAllSearch === 'function') _resetViewAllSearch();
-        renderViewAll();
-      }
-      else if (target === 'what-i-have' && typeof renderWhatIHave === 'function') renderWhatIHave();
-      else if (target === 'home' && typeof renderHome === 'function') renderHome();
-      else if (target === 'alerts' && typeof renderAlerts === 'function') renderAlerts();
-      else if (target === 'section' && typeof renderSection === 'function') renderSection();
-      else if (target === 'popular' && typeof renderPopularList === 'function') renderPopularList();
-      else if (target === 'cookme' && typeof renderCookMe === 'function') renderCookMe();
-      // Re-renderitzem la sub-pantalla de Configuració al tornar — així les
-      // que tenen contingut prestat (embedding) recuperen els seus fills.
-      else if (target === 'settings-regional' && typeof renderSettingsRegional === 'function') renderSettingsRegional();
-      else if (target === 'settings-content'  && typeof renderSettingsContent  === 'function') renderSettingsContent();
-      else if (target === 'settings-activity' && typeof renderSettingsActivity === 'function') renderSettingsActivity();
-      else if (target === 'settings-app'      && typeof renderSettingsApp      === 'function') renderSettingsApp();
-      else if (target === 'settings-data'     && typeof renderSettingsData     === 'function') renderSettingsData();
-      // (No cal cap refresc en tornar a 'settings' — la pantalla principal
-      // només té 5 cards de categoria estàtiques. Els subtítols dinàmics
-      // viuen dins les sub-pantalles, que ja es re-renderitzen quan s'obren.)
-      else if (target === 'list' && typeof openShelf === 'function' && currentLevel) {
-        openShelf(currentLevel);
-        return; // openShelf ja fa showScreen
-      }
-      else if (target === 'product' && typeof openProduct === 'function' && currentProduct) {
-        // Tornem al detall del producte des de CookMe (entrada via
-        // btn-recipes-from-product). openProduct refresca el contingut
-        // amb l'estat actual i ja crida showScreen('product').
-        openProduct(currentProduct.id);
+    b.addEventListener('click', () => { history.back(); });
+  });
+
+  // Gest enrere del sistema / botó enrere del navegador. Desfà UNA capa visual.
+  // Sub-pas 1 (només pantalles): prioritat (1) onboarding pas 2 → pas 1;
+  // (2) pantalla no-launcher → back segons el seu data-back; (3) launcher =
+  // arrel → no fem res i l'app es tanca.
+  // ⚠️ SUB-PAS 2 (encara no fet): abans d'aquestes comprovacions caldrà tancar
+  //    el modal/picker superior si n'hi ha. IMPORTANT per al sub-pas 2: NO usar
+  //    `.modal-overlay:last-of-type` (:last-of-type mira l'últim <div> germà, no
+  //    l'últim amb la classe → falla en silenci). Usar:
+  //    const modal = [...document.querySelectorAll('.modal-overlay')].pop();
+  window.addEventListener('popstate', () => {
+    // (0) Aterratge de navCollapseToRoot: acabem de consumir el residu amb un
+    // history.go(-d) i som a l'arrel. Executa el callback pendent (si n'hi ha) i
+    // atura aquí — no interpretem aquest pop com un "enrere" d'usuari.
+    if (_navPendingRoot) {
+      const cb = _navPendingRoot;
+      _navPendingRoot = null;
+      _navFromPop = true;
+      try { cb(); } finally { _navFromPop = false; }
+      return;
+    }
+    // (1) Onboarding de 2 passos (una sola .screen amb welcomeStep): pas 2 → 1.
+    if (typeof welcomeStep !== 'undefined' && welcomeStep === 2) {
+      const w = document.getElementById('screen-welcome');
+      if (w && w.classList.contains('active') && typeof welcomeBackToLang === 'function') {
+        _navFromPop = true;
+        welcomeBackToLang();
+        _navFromPop = false;
         return;
       }
-      showScreen(target);
-    });
+    }
+    // (2) Pantalla activa no-launcher → mateix back que la fletxa (data-back).
+    const active = document.querySelector('.screen.active');
+    if (active && active.id !== 'screen-launcher') {
+      const backBtn = active.querySelector('.back-btn');
+      if (backBtn) {
+        _navFromPop = true;
+        performBack(backBtn);
+        _navFromPop = false;
+      }
+    }
+    // (3) launcher (arrel): res → l'app es tanca (comportament normal).
   });
 
   document.querySelectorAll('.action-btn').forEach(b => {

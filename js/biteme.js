@@ -5331,7 +5331,12 @@ function _makeEmojiBtn(e, currentEmoji, target) {
   btn.textContent = e;
   btn.addEventListener('click', () => {
     _emojiPickerApply(target, e);
-    showScreen(emojiPickerOrigin);
+    // Retorn a l'origen via history.back() (l'obertura de l'emoji-picker va
+    // empènyer una entrada) → popstate navega a l'origen, sense deixar una
+    // entrada "morta". No toquem la URL. (El cas 'product-edit-emoji' reobre el
+    // modal d'edició dins _emojiPickerApply; queda per sobre — el tancament del
+    // modal amb el gest arriba al sub-pas 2.)
+    history.back();
   });
   return btn;
 }

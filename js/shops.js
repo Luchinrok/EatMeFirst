@@ -160,10 +160,12 @@ function showWelcomeIfNeeded() {
   return true;
 }
 
-// Cablatge (idempotent via onclick=) del botó Enrere (pas 2 → pas 1).
+// Cablatge (idempotent via onclick=) del botó Enrere (pas 2 → pas 1). Passa per
+// history.back() → popstate (app.js) → welcomeBackToLang, com el gest del sistema,
+// perquè historial i passos no divergeixin.
 function _wireWelcomeButtons() {
   const back = document.getElementById('welcome-back-btn');
-  if (back) back.onclick = welcomeBackToLang;
+  if (back) back.onclick = () => history.back();
 }
 
 // Mostra el pas actiu i repinta la seva llista. _rerenderActiveScreen (cas
@@ -197,6 +199,11 @@ function renderWelcomeLangList() {
     container.addEventListener('click', (e) => {
       if (e.target && e.target.closest && e.target.closest('.lang-item')) {
         welcomeStep = 2;
+        // Empeny una entrada d'historial per al pas 2 (aquest avanç no passa per
+        // showScreen): així el gest enrere torna al pas 1 en lloc de sortir.
+        // d = profunditat real (entrada actual + 1); no toquem la URL.
+        const cur = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+        try { history.pushState({ d: cur + 1, w: 2 }, ''); } catch (err) {}
         renderWelcomeStep();
       }
     }, true);   // captura: abans del handler de renderLangListInto
@@ -232,7 +239,14 @@ function finishWelcome(countryCode) {
   const country = countryCode || currentCountry;
   if (typeof initSupermarketsForCountry === 'function') initSupermarketsForCountry(country);
   localStorage.setItem('eatmefirst_onboarded', 'true');
-  showScreen('launcher');
+  if (typeof welcomeStep !== 'undefined') welcomeStep = 1;
+  // Reset d'historial en acabar l'onboarding SENSE deixar residu: durant
+  // l'onboarding vam empènyer 1 entrada (pas 2), així que aquí d===1.
+  // navCollapseToRoot fa history.go(-1) → aterra a la meva arrel i, un cop allà,
+  // mostra el launcher (callback, sota _navFromPop). Resultat: el primer gest
+  // enrere al launcher tanca l'app, sense el "dead press" que deixaria l'antic
+  // replaceState (que no pot esborrar l'entrada de benvinguda del darrere).
+  navCollapseToRoot(() => showScreen('launcher'));
   setTimeout(() => showToast('🎉 ' + t('welcomeReady')), 300);
 }
 

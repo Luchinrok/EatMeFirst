@@ -811,7 +811,49 @@ function daysText(days) {
 }
 
 // PANTALLES
+
+// ---- Historial de navegació (gest enrere d'Android / botó enrere del navegador) ----
+// La navegació és DOM-only (showScreen commuta la classe .active). En mode
+// standalone no hi ha historial de navegador, així que el gest enrere no té res
+// per desfer i tanca l'app. Sincronitzem una pila d'historial perquè el gest
+// desfaci UNA capa (pantalla) en lloc de sortir. Regles:
+//   · Cada navegació endavant (showScreen a una pantalla ≠ launcher) empeny 1
+//     entrada; el launcher és l'ARREL (replaceState, no acumula).
+//   · El botó enrere de la UI i el gest conflueixen a history.back() → popstate
+//     (vegeu performBack + el listener a app.js) → així historial i pila visual
+//     no divergeixen.
+//   · La URL NO es toca MAI: push/replaceState sense argument d'URL → path i hash
+//     intactes.
+// (Sub-pas 2, encara no fet: el popstate tancarà primer modals/pickers oberts.)
+// Cada entrada porta {d} = la seva profunditat real dins la MEVA pila (arrel=0).
+// La derivo de l'entrada actual (+1) a cada push, no d'un comptador lliure, perquè
+// history.go(-d) de navCollapseToRoot aterri sempre exactament a l'arrel.
+let _navFromPop = false; // true mentre naveguem des d'un popstate → showScreen no empeny
+let _navBooting = true;  // durant el boot la 1a pantalla és l'arrel (replace, no push)
+let _navPendingRoot = null; // callback a executar quan navCollapseToRoot aterri a l'arrel
+
+// Col·lapsa l'historial residual fins a la meva ARREL (d:0), consumint d'un sol
+// cop NOMÉS entrades meves. Fiable perquè `d` és el meu comptador seqüencial
+// estampat a cada entrada (via push/replaceState) i que sobreviu una recàrrega:
+// history.go(-d) retrocedeix EXACTAMENT d entrades meves i aterra a la d:0, sense
+// tocar mai cap entrada de pre-app (per això NO usem history.length, que en un
+// navegador inclou pàgines anteriors de l'usuari). L'API History no deixa
+// esborrar entrades del darrere; això és el més net i fiable que permet.
+// onRoot (opcional) s'executa quan ja som a l'arrel (des del popstate, sota
+// _navFromPop). Si ja hi som (d===0), s'executa de seguida. No toca la URL.
+function navCollapseToRoot(onRoot) {
+  const d = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+  if (d > 0) {
+    _navPendingRoot = onRoot || null;
+    try { history.go(-d); } catch (e) { _navPendingRoot = null; if (onRoot) onRoot(); }
+  } else if (onRoot) {
+    onRoot();
+  }
+}
+
 function showScreen(name) {
+  const _prevActive = document.querySelector('.screen.active');
+  const _sameScreen = _prevActive && _prevActive.id === 'screen-' + name;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   window.scrollTo(0, 0);
@@ -840,6 +882,21 @@ function showScreen(name) {
     // Refresca els banners de notificacions intel·ligents
     if (typeof renderSmartNotifBanners === 'function') renderSmartNotifBanners();
   }
+
+  // Sincronització amb l'API History. Mai toquem la URL: push/replaceState sense
+  // argument d'URL deixen path i hash intactes. No empenyem si venim d'un popstate
+  // ni en refrescar la mateixa pantalla (evita entrades duplicades). `d` és la
+  // PROFUNDITAT REAL = d de l'entrada actual + 1 (NO un comptador lliure, que
+  // derivaria de la profunditat i faria que navCollapseToRoot passés de llarg).
+  if (_navFromPop || _sameScreen) return;
+  try {
+    if (_navBooting || name === 'launcher') {
+      history.replaceState({ d: 0 }, '');   // arrel: launcher (o 1a pantalla al boot)
+    } else {
+      const cur = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+      history.pushState({ d: cur + 1 }, '');
+    }
+  } catch (e) { /* history no disponible: navegació segueix funcionant */ }
 }
 
 // Manté el nom legacy: és exactament el mateix que formatDateLocal.
