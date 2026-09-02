@@ -647,14 +647,18 @@ function openCookConsumeModal() {
     + '<button class="modal-confirm" id="cook-confirm-btn">' + escapeHtml(t('haveCookedBtn')) + '</button>'
     + '</div>'
     + '</div>';
-  document.body.appendChild(overlay);
-
-  const close = () => {
+  // Neteja REAL del modal (la que rep openModal): treu el listener d'Escape del
+  // document I l'overlay. El gest enrere l'executarà via el popstate; un remove()
+  // pelat filtraria el keydown. `close` (botons/backdrop/Escape) enruta ara per
+  // dismissModal, que fa aquesta neteja + treu l'entrada d'historial.
+  const _cookTeardown = () => {
     document.removeEventListener('keydown', onEsc);
     if (overlay.parentNode) document.body.removeChild(overlay);
   };
+  const close = () => dismissModal(overlay);
   const onEsc = (e) => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onEsc);
+  openModal(overlay, _cookTeardown);   // afegeix l'overlay + empeny 1 entrada d'historial
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
   overlay.querySelector('#cook-cancel-btn').addEventListener('click', close);
 
@@ -1425,7 +1429,9 @@ function showIngredientPicker(recipe, supers, opts) {
       '<button type="button" class="modal-confirm-btn" id="ingredient-pick-confirm"></button>' +
       '<button class="modal-cancel" id="modal-cancel-btn">' + t('cancel') + '</button>' +
     '</div>';
-  document.body.appendChild(overlay);
+  // Neteja consolidada (aquest modal no té listeners de document ni pickers a
+  // destruir: només l'overlay). Els 3 camins de tancament passen per dismissModal.
+  openModal(overlay, function () { if (overlay.parentNode) document.body.removeChild(overlay); });
 
   const confirmBtn = overlay.querySelector('#ingredient-pick-confirm');
   function refreshConfirm() {
@@ -1465,7 +1471,7 @@ function showIngredientPicker(recipe, supers, opts) {
       const ing = ingredients[idx];
       return { name: ing.name || '', emoji: ing.emoji || '🛒', qty: scaleIngredient(ing.qty, factor) };
     });
-    document.body.removeChild(overlay);
+    dismissModal(overlay);
     addItemsToShop(selectedSuperId, items, { skipRecipeCount: !!opts.skipRecipeCount });
     // Callback post-alta (p. ex. el planificador marca la setmana com a
     // "compra generada"). Es crida només en confirmar, no en cancel·lar.
@@ -1473,10 +1479,10 @@ function showIngredientPicker(recipe, supers, opts) {
   });
 
   overlay.querySelector('#modal-cancel-btn').addEventListener('click', () => {
-    document.body.removeChild(overlay);
+    dismissModal(overlay);
   });
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) document.body.removeChild(overlay);
+    if (e.target === overlay) dismissModal(overlay);
   });
 }
 

@@ -851,6 +851,56 @@ function navCollapseToRoot(onRoot) {
   }
 }
 
+// ---- Pila de modals (gest enrere, sub-pas 2) ----
+// Tots els modals de l'app són un <div class="modal-overlay"> afegit a <body>.
+// Perquè el gest enrere tanqui PRIMER el modal superior (en lloc de navegar la
+// pantalla de sota), cada modal MIGRAT es registra aquí amb la seva funció de
+// neteja REAL — no un removeChild pelat: inclou el que faci el seu close()
+// (removeEventListener de l'Escape, destroy de pickers de categoria/espai, etc.).
+// Modals NO migrats: no criden res d'això → no toquen ni la pila ni l'historial,
+// segueixen funcionant exactament com abans (vegeu dismissModal i el popstate).
+const _modalStack = [];       // { overlay, close }  (close = neteja real del modal)
+let _modalNoopPops = 0;       // popstates que cal ignorar (venen d'un dismiss d'usuari)
+
+// Obertura: afegeix l'overlay i empeny 1 entrada d'historial (com una pantalla
+// més profunda). d = profunditat real + 1, igual que showScreen. No toca la URL.
+function openModal(overlay, closeFn) {
+  document.body.appendChild(overlay);
+  _modalStack.push({ overlay: overlay, close: (typeof closeFn === 'function') ? closeFn : function () {
+    if (overlay.parentNode) document.body.removeChild(overlay);
+  } });
+  const cur = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+  try { history.pushState({ d: cur + 1, m: 1 }, ''); } catch (e) {}
+}
+
+// Tancament per acció d'USUARI (cancel·la / confirma / backdrop / Escape). Fa la
+// neteja SÍNCRONAMENT (l'ordre respecte a onConfirm/toasts posteriors es manté) i
+// després treu l'entrada d'historial amb un history.back() que el popstate
+// reconeixerà com a no-op (via _modalNoopPops). Idempotent.
+function dismissModal(overlay) {
+  const i = _modalStack.findIndex(function (m) { return m.overlay === overlay; });
+  if (i === -1) return;                          // ja tancat o no registrat: res a fer
+  const entry = _modalStack.splice(i, 1)[0];
+  entry.close();                                 // neteja REAL
+  _modalNoopPops++;
+  try { history.back(); } catch (e) { _modalNoopPops--; }
+}
+
+// Substitució A→B (cadenes: un modal que en tanca un i n'obre un altre al mateix
+// gest). Tanca A (neteja real, sense history.back) i obre B REEMPLAÇANT l'entrada
+// d'A → B queda al seu lloc, sense deixar residu d'historial darrere. (No
+// s'exercita al pilot cookme; es validarà en migrar buyme, que sí té cadenes.)
+function replaceModal(oldOverlay, newOverlay, newCloseFn) {
+  const i = _modalStack.findIndex(function (m) { return m.overlay === oldOverlay; });
+  if (i !== -1) { _modalStack[i].close(); _modalStack.splice(i, 1); }
+  document.body.appendChild(newOverlay);
+  _modalStack.push({ overlay: newOverlay, close: (typeof newCloseFn === 'function') ? newCloseFn : function () {
+    if (newOverlay.parentNode) document.body.removeChild(newOverlay);
+  } });
+  const cur = (history.state && typeof history.state.d === 'number') ? history.state.d : 0;
+  try { history.replaceState({ d: cur, m: 1 }, ''); } catch (e) {}
+}
+
 function showScreen(name) {
   const _prevActive = document.querySelector('.screen.active');
   const _sameScreen = _prevActive && _prevActive.id === 'screen-' + name;

@@ -377,15 +377,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Gest enrere del sistema / botó enrere del navegador. Desfà UNA capa visual.
-  // Sub-pas 1 (només pantalles): prioritat (1) onboarding pas 2 → pas 1;
-  // (2) pantalla no-launcher → back segons el seu data-back; (3) launcher =
-  // arrel → no fem res i l'app es tanca.
-  // ⚠️ SUB-PAS 2 (encara no fet): abans d'aquestes comprovacions caldrà tancar
-  //    el modal/picker superior si n'hi ha. IMPORTANT per al sub-pas 2: NO usar
-  //    `.modal-overlay:last-of-type` (:last-of-type mira l'últim <div> germà, no
-  //    l'últim amb la classe → falla en silenci). Usar:
-  //    const modal = [...document.querySelectorAll('.modal-overlay')].pop();
+  // Prioritat: (−1) no-op d'un dismiss d'usuari; (0) aterratge de collapse;
+  // (0.5) tancar el modal MIGRAT superior; (1) onboarding pas 2 → 1; (2) pantalla
+  // no-launcher → data-back; (3) launcher = arrel → l'app es tanca.
+  // Sub-pas 2 EN CURS (pilot cookme): només els modals migrats (registrats a
+  // _modalStack via openModal) intercepten el gest. Els NO migrats no toquen ni
+  // la pila ni l'historial → amb un modal no migrat obert, el gest navega la
+  // pantalla de sota, exactament com al sub-pas 1 (cap regressió).
   window.addEventListener('popstate', () => {
+    // (−1) Pop no-op: un dismissModal (tancament d'usuari) ha fet history.back()
+    // només per treure la seva entrada; aquest popstate no és un "enrere" real.
+    if (_modalNoopPops > 0) { _modalNoopPops--; return; }
     // (0) Aterratge de navCollapseToRoot: acabem de consumir el residu amb un
     // history.go(-d) i som a l'arrel. Executa el callback pendent (si n'hi ha) i
     // atura aquí — no interpretem aquest pop com un "enrere" d'usuari.
@@ -396,6 +398,11 @@ document.addEventListener('DOMContentLoaded', () => {
       try { cb(); } finally { _navFromPop = false; }
       return;
     }
+    // (0.5) Gest enrere amb un modal MIGRAT obert → tanca'l amb la SEVA neteja
+    // real (removeEventListener d'Escape, destroy de pickers…), no un remove()
+    // pelat. L'entrada ja l'ha consumida aquest mateix pop, per això NO fem
+    // history.back(). Els modals no migrats no són a _modalStack → s'ignoren aquí.
+    if (_modalStack.length) { _modalStack.pop().close(); return; }
     // (1) Onboarding de 2 passos (una sola .screen amb welcomeStep): pas 2 → 1.
     if (typeof welcomeStep !== 'undefined' && welcomeStep === 2) {
       const w = document.getElementById('screen-welcome');
