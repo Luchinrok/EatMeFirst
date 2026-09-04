@@ -350,8 +350,8 @@ function _showSyncJoinConfirm(code) {
         '<button class="modal-cancel" id="sync-join-cancel">' + escapeHtml(t('cancel')) + '</button>' +
       '</div>' +
     '</div>';
-  document.body.appendChild(overlay);
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
+  const close = () => dismissModal(overlay);
   overlay.querySelector('#sync-join-cancel').addEventListener('click', close);
   overlay.querySelector('#sync-join-backup').addEventListener('click', () => {
     close();
@@ -385,8 +385,8 @@ function disconnectSync() {
         '<button class="modal-confirm" id="sync-disc-yes">' + escapeHtml(t('syncDisconnect')) + '</button>' +
       '</div>' +
     '</div>';
-  document.body.appendChild(overlay);
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
+  const close = () => dismissModal(overlay);
   overlay.querySelector('#sync-disc-no').addEventListener('click', close);
   overlay.querySelector('#sync-disc-yes').addEventListener('click', () => {
     close();
@@ -690,7 +690,7 @@ function openTimePickerModal(currentTime, onSave) {
         '<button type="button" class="modal-confirm" data-action="save">' + escapeHtml(t('save')) + '</button>' +
       '</div>' +
     '</div>';
-  document.body.appendChild(overlay);
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
 
   const hourInput = overlay.querySelector('[data-field="hour"]');
   const minInput = overlay.querySelector('[data-field="minute"]');
@@ -737,7 +737,7 @@ function openTimePickerModal(currentTime, onSave) {
   // Selecciona tot el text al focus per facilitar reescriure.
   [hourInput, minInput].forEach(inp => inp.addEventListener('focus', () => inp.select()));
 
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  const close = () => dismissModal(overlay);
   overlay.querySelector('[data-action="cancel"]').addEventListener('click', close);
   overlay.querySelector('[data-action="save"]').addEventListener('click', () => {
     // Validació final per si un input encara no ha disparat blur (p.e. enter directe).
@@ -1836,8 +1836,8 @@ function _showInfoModal(emoji, title, paragraphs) {
         '<button class="modal-confirm" id="info-modal-close">' + escapeHtml(t('infoModalClose')) + '</button>' +
       '</div>' +
     '</div>';
-  document.body.appendChild(overlay);
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
+  const close = () => dismissModal(overlay);
   overlay.querySelector('#info-modal-close').addEventListener('click', close);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 }
@@ -2575,8 +2575,8 @@ function showConfirmModal(emoji, title, message, opts, onConfirm) {
       </div>
     </div>
   `;
-  document.body.appendChild(overlay);
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
+  const close = () => dismissModal(overlay);
   overlay.querySelector('#modal-no-btn').addEventListener('click', close);
   overlay.querySelector('#modal-yes-btn').addEventListener('click', () => {
     close();
@@ -2628,14 +2628,14 @@ function showInputModal(emoji, title, message, placeholder, onConfirm, options) 
       </div>
     </div>
   `;
-  document.body.appendChild(overlay);
+  openModal(overlay, () => {
+    document.removeEventListener('keydown', onEscape);
+    if (overlay.parentNode) document.body.removeChild(overlay);
+  });
 
   const input = overlay.querySelector('#modal-input-field');
   const errorEl = overlay.querySelector('#modal-input-error');
-  const close = () => {
-    document.removeEventListener('keydown', onEscape);
-    if (overlay.parentNode) document.body.removeChild(overlay);
-  };
+  const close = () => dismissModal(overlay);
   const onEscape = (e) => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onEscape);
 
@@ -2683,8 +2683,8 @@ function showConfirmDangerModal(emoji, title, message, onConfirm) {
       </div>
     </div>
   `;
-  document.body.appendChild(overlay);
-  const close = () => { if (overlay.parentNode) document.body.removeChild(overlay); };
+  openModal(overlay, () => { if (overlay.parentNode) document.body.removeChild(overlay); });
+  const close = () => dismissModal(overlay);
   overlay.querySelector('#modal-no-btn').addEventListener('click', close);
   overlay.querySelector('#modal-yes-btn').addEventListener('click', () => {
     close();
@@ -2722,11 +2722,11 @@ function showSelectModal(emoji, title, message, options, currentValue, onConfirm
       </div>
     </div>
   `;
-  document.body.appendChild(overlay);
-  const close = () => {
+  openModal(overlay, () => {
     document.removeEventListener('keydown', onEscape);
     if (overlay.parentNode) document.body.removeChild(overlay);
-  };
+  });
+  const close = () => dismissModal(overlay);
   const onEscape = (e) => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onEscape);
   overlay.querySelector('#modal-no-btn').addEventListener('click', close);
